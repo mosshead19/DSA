@@ -274,15 +274,6 @@ namespace SortingPracticeImplementation
                 }
             }
 
-            /*
-                        Console.WriteLine("\ngenerated array: ");
-                        displayArray(randomArray);
-
-                        Console.WriteLine("\n\nSorted array: ");
-
-                        quickSort(randomArray,0,randomArray.Length-1);
-                        displayArray(randomArray);*/
-
 
             Console.ReadLine();
 
