@@ -7,7 +7,7 @@
     <ProjectGuid>{CE9B1F27-5D18-4BDB-BC73-0ED4660CAB15}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Karatsuba_s</RootNamespace>
-    <AssemblyName>Karatsuba_s</AssemblyName>
+    <AssemblyName>Karatsuba%27s</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
