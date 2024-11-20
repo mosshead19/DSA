@@ -14,7 +14,7 @@ namespace PrimMSTV2
                 { 0, 5, 7, 9, 0 }
             };
 
-            findMST(graph);
+            findmst(graph);
             Console.ReadLine(); // Pause to view output
         }
 
@@ -33,6 +33,91 @@ namespace PrimMSTV2
             }
             return vertex;
         }
+
+        static int selectminV(int[] value, bool[] setmst, int v)
+        {
+
+            int minimum = int.MaxValue;
+            int vertex = -1;
+            for(int i = 0; i < v; i++)
+            {
+                if (!setmst[i] && value[i] < minimum)
+                {
+                    minimum= value[i];
+                    vertex = i;
+                }
+            }
+            return vertex;
+        }
+
+
+        static void findmst(int[,] graph)
+        {
+            
+            int v = graph.GetLength(0);
+            int[] parent = new int[v];
+            int[] value = new int[v];
+            bool[] setMST = new bool[v];
+
+
+            for(int i = 0; i < v; ++i)
+            {
+                setMST[i] = false;
+                value[i] = int.MaxValue;
+            }
+
+            //initialize parent[0] and value[0]
+            parent[0] = -1;
+            value[0] = 0;
+
+            for(int i=0;i < v; ++i)
+            {
+                //select
+                int U = selectminV(value, setMST, v);
+                //setMST
+                setMST[U] = true;
+                //relax adjacent edges
+                for(int j =0;j < v; ++j)
+                {
+                    if (graph[U,j]!=0 && graph[U, j] < value[j] && !setMST[j])
+                    {
+                        value[j] = graph[U,j];
+                        parent[j] = U;
+                    }
+                }
+
+            }
+
+
+            int totalweight = 0;
+            for (int i = 1; i < v; i++)
+            {
+                Console.WriteLine($"{parent[i]}-->{i} wt= {graph[parent[i], i]}");
+                totalweight += graph[parent[i], i];
+                
+            }
+            Console.WriteLine($"totalWeight: {totalweight}");
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         static void findMST(int[,] graph)
         {
