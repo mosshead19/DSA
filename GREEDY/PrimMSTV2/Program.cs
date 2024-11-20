@@ -6,19 +6,33 @@ namespace PrimMSTV2
     {
         static void Main(string[] args)
         {
-            int[,] graph = {
-                { 0, 2, 0, 6, 0 },
-                { 2, 0, 3, 8, 5 },
-                { 0, 3, 0, 0, 7 },
-                { 6, 8, 0, 0, 9 },
-                { 0, 5, 7, 9, 0 }
-            };
+            Console.Write("Enter the number of vertices: ");
+            int vertices = int.Parse(Console.ReadLine());
 
-            findmst(graph);
+            int[,] graph = new int[vertices, vertices];
+
+            Console.Write("Enter the number of edges: ");
+            int edges = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter edges in the format: start end weight");
+            Console.WriteLine("NOTE! this program assumes that starting vertex is 1,\nif ur starting vertex  is 1 please decrement your input vertices by 1");
+            for (int i = 0; i < edges; i++)
+            {
+                Console.Write($"Edge {i + 1}: ");
+                string[] input = Console.ReadLine().Split();
+                int start = int.Parse(input[0]);
+                int end = int.Parse(input[1]);
+                int weight = int.Parse(input[2]);
+                graph[start, end] = weight;
+                graph[end, start] = weight; // For undirected graph
+            }
+
+            Console.WriteLine("\nMinimum Spanning Tree:");
+            FindMST(graph);
             Console.ReadLine(); // Pause to view output
         }
 
-        static int selectMinVertex(int[] value, bool[] setMST, int v)
+        static int SelectMinVertex(int[] value, bool[] setMST, int v)
         {
             int minimum = int.MaxValue;
             int vertex = -1;
@@ -34,92 +48,7 @@ namespace PrimMSTV2
             return vertex;
         }
 
-        static int selectminV(int[] value, bool[] setmst, int v)
-        {
-
-            int minimum = int.MaxValue;
-            int vertex = -1;
-            for(int i = 0; i < v; i++)
-            {
-                if (!setmst[i] && value[i] < minimum)
-                {
-                    minimum= value[i];
-                    vertex = i;
-                }
-            }
-            return vertex;
-        }
-
-
-        static void findmst(int[,] graph)
-        {
-            
-            int v = graph.GetLength(0);
-            int[] parent = new int[v];
-            int[] value = new int[v];
-            bool[] setMST = new bool[v];
-
-
-            for(int i = 0; i < v; ++i)
-            {
-                setMST[i] = false;
-                value[i] = int.MaxValue;
-            }
-
-            //initialize parent[0] and value[0]
-            parent[0] = -1;
-            value[0] = 0;
-
-            for(int i=0;i < v; ++i)
-            {
-                //select
-                int U = selectminV(value, setMST, v);
-                //setMST
-                setMST[U] = true;
-                //relax adjacent edges
-                for(int j =0;j < v; ++j)
-                {
-                    if (graph[U,j]!=0 && graph[U, j] < value[j] && !setMST[j])
-                    {
-                        value[j] = graph[U,j];
-                        parent[j] = U;
-                    }
-                }
-
-            }
-
-
-            int totalweight = 0;
-            for (int i = 1; i < v; i++)
-            {
-                Console.WriteLine($"{parent[i]}-->{i} wt= {graph[parent[i], i]}");
-                totalweight += graph[parent[i], i];
-                
-            }
-            Console.WriteLine($"totalWeight: {totalweight}");
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        static void findMST(int[,] graph)
+        static void FindMST(int[,] graph)
         {
             if (graph == null || graph.GetLength(0) != graph.GetLength(1))
             {
@@ -143,13 +72,9 @@ namespace PrimMSTV2
 
             for (int i = 0; i < v - 1; i++)
             {
-                // Step 1: Select the minimum vertex
-                int U = selectMinVertex(value, setMST, v);
-
-                // Step 2: Mark U as included in MST
+                int U = SelectMinVertex(value, setMST, v);
                 setMST[U] = true;
 
-                // Step 3: Relax edges of U's adjacent vertices
                 for (int j = 0; j < v; j++)
                 {
                     if (graph[U, j] != 0 && !setMST[j] && graph[U, j] < value[j])
@@ -160,7 +85,6 @@ namespace PrimMSTV2
                 }
             }
 
-            // Print MST and total weight
             int totalWeight = 0;
             for (int i = 1; i < v; ++i)
             {
