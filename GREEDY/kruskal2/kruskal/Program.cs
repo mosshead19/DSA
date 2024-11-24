@@ -104,7 +104,13 @@ namespace kruskal
 
 
 
+            //in case the given starts from 1
 
+            /*  dsuf.Add(new Node()); // Add a dummy node for 1-based indexing
+              for (int i = 1; i <= V; i++)
+              {
+                  dsuf.Add(new Node());
+              }*/
 
             //FILL THE DSUF WITH THE INITAL PARENT AND RANK VALUE
             dsuf = new List<Node>();
@@ -135,7 +141,7 @@ namespace kruskal
             Kruskals(edgeList, V, E);
             PrintMST(mst);
 
-            Console.ReadLine();
+            Console.ReadKey ();
         }
     }
 }
