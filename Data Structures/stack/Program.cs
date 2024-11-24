@@ -15,12 +15,12 @@ namespace stack
             int[] B = { 7, 8, 9, 10, 11, 12, 13, 14 };
 
             // Stack to hold elements temporarily
-            customStack stack = new customStack(2);
+            customStack2 stack = new customStack2(2);
 
             // Push 1 and 2 from A into the stack
             stack.push(A[1]);
             stack.push(A[0]); // Push 1
-             // Push 2
+                              // Push 2
 
             // Prepare a list to modify Array B
             List<int> modifiedB = new List<int>();
@@ -47,47 +47,53 @@ namespace stack
         }
 
     }
-    }
 
-    class customStack
+    
+
+
+    class customStack2
     {
+
         private int[] ele;
         private int top;
         private int max;
 
-        public customStack(int size)
+
+        public customStack2(int size)
         {
-            ele = new int[size];//initialize stack 
-            top = -1;
+            ele = new int[size];
+            top = -1;//keeps track of the top element
             max = size;
         }
-
 
         public void push(int item)
         {
             if (top == max - 1)
             {
-                Console.WriteLine("stack overflow");//stack is full
+                Console.WriteLine("Stack overflow");
                 return;
             }
+
             else
             {
-                Console.WriteLine("{0} is pushed in the stack",item);
+                Console.WriteLine("{0} push on the stack",item);
                 ele[++top] = item;
+
             }
         }
+
 
         public int pop()
         {
             if (top == -1)
             {
-                Console.WriteLine("stack empty");
+                Console.WriteLine("stack is empty");
                 return -1;
             }
             else
             {
-                Console.WriteLine("{0} popped from stack", ele[top]);
-                return ele[top--];//return the popped element
+                Console.WriteLine("{0} popped from the stack", ele[top]);
+                return ele[top--];
             }
         }
 
@@ -95,7 +101,7 @@ namespace stack
         {
             if (top == -1)
             {
-                Console.WriteLine("stack empty");
+                Console.WriteLine("stack is empty");
                 return -1;
             }
             else
@@ -104,29 +110,24 @@ namespace stack
                 return ele[top];
             }
         }
-
-    public bool isEmpty()
-    {
-        return top == -1;
-    }
-
+        public bool isEmpty()
+        {
+            return top == -1;
+        }
         public void printStack()
         {
-            if(top== -1)
+            if (top == -1)
             {
                 Console.WriteLine("stack is empty");
-                return;
-            }
 
+            }
             else
+                for (int i = 0; i <=top; i++)
             {
-                Console.WriteLine("current stack elements: ");
-                for (int i =  0; i <= top; i++)
-                {
+                    Console.WriteLine("current stack elements: ");
                     Console.WriteLine(ele[i]);
-                }
             }
         }
-
     }
 
+}
